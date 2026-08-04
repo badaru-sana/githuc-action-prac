@@ -1,4 +1,4 @@
-gname: First Workflow
+name: First Workflow
 
 on:
   - push
