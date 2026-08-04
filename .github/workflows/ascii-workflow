@@ -1,7 +1,7 @@
 name: Build, Test and Deploy
 
-on: 
-  - push 
+on:
+  - push
 
 jobs:
   build:
@@ -13,7 +13,7 @@ jobs:
       - name: Install Cowsay Program
         run: sudo apt-get install cowsay -y
 
-      - name: Execute Cowsay Command 
+      - name: Execute Cowsay Command
         run: cowsay -f dragon "Run for cover, I am a DRAGON......RAWR" >> dragon.txt
 
       - name: Upload Dragon File
@@ -22,8 +22,7 @@ jobs:
           name: dragon-text-file
           path: dragon.txt
 
-
-  test: 
+  test:
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -32,13 +31,13 @@ jobs:
         with:
           name: dragon-text-file
 
-      - name: Test file exists 
+      - name: Test file exists
         run: grep -i "dragon" dragon.txt
 
-  deploy: 
+  deploy:
     needs: test
     runs-on: ubuntu-latest
-    steps: 
+    steps:
       - name: Download Dragon File
         uses: actions/download-artifact@v4
         with:
@@ -47,5 +46,5 @@ jobs:
       - name: Read File
         run: cat dragon.txt
 
-      - name: Deploy 
+      - name: Deploy
         run: echo "Deploying......."
